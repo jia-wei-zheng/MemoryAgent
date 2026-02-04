@@ -1,47 +1,61 @@
-# MemoryAgent
+# 
 
-A reusable memory framework for LLM-based agent systems. It provides tiered memory (working, episodic, semantic, perceptual), hot/cold storage, archive indexing, confidence-based retrieval escalation, and optional local vector search via sqlite-vec.
+<div align="center">
+  <img src="memoryagent_logo.jpg" alt="nanobot" width="500">
+  <h1>MemoryAgent: An Open, Modular Memory Framework for Agents (Beta)</h1>
+</div>
+
+MemoryAgent is a reusable memory framework for LLM-based agent systems. It provides tiered memory (working, episodic, semantic, perceptual), hot/cold storage, archive indexing, confidence-based retrieval escalation, and optional local vector search via sqlite-vec.
 
 ## Highlights
 - **Tiered memory**: working (TTL), episodic, semantic, perceptual
-- **Storage tiers**: hot metadata (SQLite), cold archive (filesystem), archive index (vector index)
-- **Confidence gating**: hot → archive → cold hydration with rerank + context packaging
-- **Adapters**: MetadataStore, VectorIndex, GraphStore, ObjectStore, FeatureStore
+- **Storage tiers**: hot metadata (SQLite + sqlite-vec), cold archive (filesystem), archive index (vector index)
+- **Memory retrieval pipeline**: hot -> archive -> cold hydration with rerank + context packaging
 - **Local mode**: SQLite + sqlite-vec (optional) + filesystem
 - **Async-friendly** with sync convenience methods
 
 ## Project Layout
 ```
 memoryagent/
-  config.py
-  models.py
-  system.py
-  retrieval.py
-  confidence.py
-  policy.py
-  indexers.py
-  workers.py
+  config.py            # Default system settings and retrieval thresholds
+  models.py            # Pydantic data models for memory items, queries, bundles
+  system.py            # MemorySystem entry point and wiring
+  retrieval.py         # Retrieval orchestration and reranking
+  confidence.py        # Confidence scoring components
+  policy.py            # Conversation + routing policies
+  indexers.py          # Episodic/semantic/perceptual indexers
+  workers.py           # Consolidation, archiving, rehydration, compaction
   storage/
-    base.py
-    in_memory.py
-    local_disk.py
+    base.py            # Storage adapter interfaces
+    in_memory.py       # Simple in-memory vector + graph stores
+    local_disk.py      # SQLite metadata/features + sqlite-vec + file object store
   examples/
-    minimal.py
-    openai_agent.py
-    memory_api_server.py
-    memory_viz.html
+    minimal.py         # Basic usage example
+    openai_agent.py    # CLI OpenAI agent with memory retrieval
+    memory_api_server.py # Local API for memory + chat
+    memory_viz.html    # Web UI for chat + memory visualization
 ```
 
 ## Installation
 Python 3.10+ required.
 
+Development (sync deps from `uv.lock`):
 ```bash
 uv sync
+```
+
+Use as a dependency:
+```bash
+uv add memoryagent
+# or
+pip install memoryagent
 ```
 
 Optional extras:
 ```bash
 uv add openai sqlite-vec
+# or
+pip install openai sqlite-vec
 ```
 
 ## Quick Start
@@ -128,6 +142,12 @@ Open in browser:
 ```
 http://127.0.0.1:8000/memory_viz.html
 ```
+
+An example (System records semantic memory and updating working memory): 
+
+![Screenshot](<Memory Agent _ Live Console.jpeg>)
+
+
 The page calls:
 - `GET /api/memory?owner=user-001`
 - `POST /api/chat`
@@ -149,4 +169,3 @@ See `memoryagent/config.py` for defaults:
 - Episodic/semantic memories are candidates for cold archive.
 
 ## License
-Add your license here.

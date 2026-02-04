@@ -10,3 +10,7 @@ dependencies = [
     "pydantic>=2.0",
     "sqlite-vec>=0.1.6",
 ]
+license = {text = "MIT"}
+authors = [
+    {name = "Jiawei Zheng", email = "jw.zhengai@gmail.com"}
+]
