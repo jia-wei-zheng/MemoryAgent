@@ -35,6 +35,7 @@ class MemorySystem:
         routing_policy: Optional[MemoryRoutingPolicy] = None,
     ) -> None:
         self.config = config or MemorySystemConfig()
+        self.config.resolve_paths()
         self.metadata_store = metadata_store or SQLiteMetadataStore(self.config.metadata_db_path)
         if vector_index is not None:
             self.vector_index = vector_index

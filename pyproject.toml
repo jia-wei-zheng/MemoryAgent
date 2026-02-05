@@ -1,11 +1,11 @@
 [project]
-name = "memoryagent"
-version = "0.1.0"
+name = "memoryagent-lib"
+version = "0.1.2"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "dotenv>=0.9.9",
+    "python-dotenv>=0.9.9",
     "openai>=2.16.0",
     "pydantic>=2.0",
     "sqlite-vec>=0.1.6",
@@ -14,3 +14,7 @@ license = {text = "MIT"}
 authors = [
     {name = "Jiawei Zheng", email = "jw.zhengai@gmail.com"}
 ]
+
+[project.urls]
+Homepage = "https://github.com/jia-wei-zheng/MemoryAgent"
+Repository = "https://github.com/jia-wei-zheng/MemoryAgent"

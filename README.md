@@ -1,7 +1,5 @@
-# 
-
 <div align="center">
-  <img src="memoryagent_logo.jpg" alt="nanobot" width="500">
+  <img src="https://raw.githubusercontent.com/jia-wei-zheng/MemoryAgent/refs/heads/master/memoryagent_logo.jpg?token=GHSAT0AAAAAADSXDGNDXIWZF42E6S3D2XPG2MDPSDQ" alt="MemoryAgent" width="500">
   <h1>MemoryAgent: An Open, Modular Memory Framework for Agents (Beta)</h1>
 </div>
 
@@ -46,9 +44,9 @@ uv sync
 
 Use as a dependency:
 ```bash
-uv add memoryagent
+uv add memoryagent-lib
 # or
-pip install memoryagent
+pip install memoryagent-lib
 ```
 
 Optional extras:
@@ -108,23 +106,6 @@ config = MemorySystemConfig(
 )
 ```
 
-## Policies
-### Conversation storage policy
-`HeuristicMemoryPolicy` decides whether a turn should be stored and whether it becomes episodic or semantic memory.
-
-### Routing policy
-`MemoryRoutingPolicy` decides where a memory should be written:
-- **Hot** metadata store
-- **Vector index**
-- **Feature store** (perceptual)
-- **Cold** archive (via workers)
-
-## Background Workers
-- `ConsolidationWorker`: working → episodic/semantic
-- `ArchiverWorker`: hot → cold + archive index
-- `RehydratorWorker`: cold → hot (based on access)
-- `Compactor`: cleanup/TTL
-
 ## Examples
 ### OpenAI Agent (CLI)
 ```bash
@@ -145,18 +126,40 @@ http://127.0.0.1:8000/memory_viz.html
 
 An example (System records semantic memory and updating working memory): 
 
-![Screenshot](<Memory Agent _ Live Console.jpeg>)
+![Screenshot](https://raw.githubusercontent.com/jia-wei-zheng/MemoryAgent/master/Memory%20Agent%20_%20Live%20Console.jpeg?token=GHSAT0AAAAAADSXDGNDWOWFKKV777VMZM6U2MDPSTQ)
 
 
 The page calls:
 - `GET /api/memory?owner=user-001`
 - `POST /api/chat`
 
+## Policies
+### Conversation storage policy
+`HeuristicMemoryPolicy` decides whether a turn should be stored and whether it becomes episodic or semantic memory.
+
+### Routing policy
+`MemoryRoutingPolicy` decides where a memory should be written:
+- **Hot** metadata store
+- **Vector index**
+- **Feature store** (perceptual)
+- **Cold** archive (via workers)
+
+## Background Workers
+- `ConsolidationWorker`: working -> episodic/semantic
+- `ArchiverWorker`: hot -> cold + archive index
+- `RehydratorWorker`: cold -> hot (based on access)
+- `Compactor`: cleanup/TTL
+
+
 ## Data Stores
 - **Hot metadata**: `.memoryagent_hot.sqlite`
 - **Vector index**: `.memoryagent_vectors.sqlite` (sqlite-vec)
 - **Features**: `.memoryagent_features.sqlite`
 - **Cold archive**: `.memoryagent_cold/records/<owner>/YYYY/MM/DD/daily_notes.json`
+
+## Data Root (Installed Usage)
+The system auto-detects a project root by walking up from the current working directory and looking for `pyproject.toml` or `.git`. If it can’t find one, it uses the current directory.
+
 
 ## Configuration
 See `memoryagent/config.py` for defaults:
@@ -169,3 +172,4 @@ See `memoryagent/config.py` for defaults:
 - Episodic/semantic memories are candidates for cold archive.
 
 ## License
+MIT License

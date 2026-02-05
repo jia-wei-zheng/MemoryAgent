@@ -7,6 +7,7 @@ from pathlib import Path
 import os
 from memoryagent.examples.export_memory import get_memory_payload
 from uuid import uuid4
+from pathlib import Path
 
 from memoryagent import (
     HeuristicMemoryPolicy,
@@ -64,6 +65,7 @@ def _get_memory_system():
     vector_dim = int(os.environ.get("OPENAI_EMBED_DIM", "1536"))
 
     config = MemorySystemConfig(
+        data_root=Path.cwd(),
         use_sqlite_vec=True,
         vector_dim=vector_dim,
         sqlite_vec_extension_path=os.environ.get("SQLITE_VEC_PATH"),
@@ -72,6 +74,10 @@ def _get_memory_system():
     memory = MemorySystem(
         config=config,
         embedding_fn=_openai_embedder(client, embedding_model, config.vector_dim),
+    )
+    root = getattr(memory.config, "data_root", None)
+    print(
+        f"[memory_api] root={root} hot_db={memory.config.metadata_db_path} cold={memory.config.cold_store_path}"
     )
     return memory, client, model
 

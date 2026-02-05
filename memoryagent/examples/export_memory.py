@@ -5,7 +5,13 @@ import sqlite3
 from pathlib import Path
 from typing import Any, Dict, List
 
-ROOT = Path(__file__).resolve().parents[2]
+try:
+    from memoryagent.config import _find_project_root
+except Exception:
+    _find_project_root = None
+
+ROOT = _find_project_root() if _find_project_root else None
+ROOT = ROOT or Path.cwd()
 COLD_ROOT = ROOT / ".memoryagent_cold"
 HOT_DB = ROOT / ".memoryagent_hot.sqlite"
 FEATURE_DB = ROOT / ".memoryagent_features.sqlite"
