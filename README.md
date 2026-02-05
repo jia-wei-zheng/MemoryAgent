@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/jia-wei-zheng/MemoryAgent/refs/heads/master/memoryagent_logo.jpg?token=GHSAT0AAAAAADSXDGNDXIWZF42E6S3D2XPG2MDPSDQ" alt="MemoryAgent" width="500">
+  <img src="https://raw.githubusercontent.com/jia-wei-zheng/MemoryAgent/refs/heads/master/memoryagent_logo.jpg" alt="MemoryAgent" width="500">
   <h1>MemoryAgent: An Open, Modular Memory Framework for Agents (Beta)</h1>
 </div>
 
@@ -126,7 +126,7 @@ http://127.0.0.1:8000/memory_viz.html
 
 An example (System records semantic memory and updating working memory): 
 
-![Screenshot](https://raw.githubusercontent.com/jia-wei-zheng/MemoryAgent/master/Memory%20Agent%20_%20Live%20Console.jpeg?token=GHSAT0AAAAAADSXDGNDWOWFKKV777VMZM6U2MDPSTQ)
+![Screenshot](https://raw.githubusercontent.com/jia-wei-zheng/MemoryAgent/457c3fdadc099727b337838634b9ca3a4ec89fe8/Memory%20Agent%20_%20Live%20Console.jpeg)
 
 
 The page calls:
